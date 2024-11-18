@@ -1,0 +1,11 @@
+	Tarefas Projeto LealCars
+
+Fazer o menu
+Fazer sistema de filtragem
+Fazer pagina Contactos e Sobre nós
+Fazer página para cada automóvel
+Fazer página de favoritos
+Fazer login e criar conta
+Fazer sistema de revenda
+Fazer a página principal
+chat (opcional)
