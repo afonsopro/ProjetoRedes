@@ -9,6 +9,9 @@ Version
 Database		mySQL 5 
 */
 
+CREATE DATABASE  LealCars;
+USE LealCars;
+
 
 drop table IF EXISTS TipoCaixa;
 drop table IF EXISTS Mensagens;
@@ -27,7 +30,7 @@ drop table IF EXISTS Utilizador;
 
 
 Create table Utilizador (
-	CodUti Serial NOT NULL AUTO_INCREMENT,
+	CodUti Serial NOT NULL,
 	utinome Varchar(100),
 	utimail Varchar(100),
 	utipass Varchar(50),
@@ -36,7 +39,7 @@ Create table Utilizador (
  Primary Key (CodUti,CodTipoUti)) ENGINE = innodb;
 
 Create table Veiculo (
-	CodVei Serial NOT NULL AUTO_INCREMENT,
+	CodVei Serial NOT NULL,
 	veikm Int,
 	veidescricao Text,
 	CodMod Bigint UNSIGNED NOT NULL,
@@ -52,30 +55,30 @@ Create table Veiculo (
  Primary Key (CodVei)) ENGINE = innodb;
 
 Create table TipoVei (
-	CodTpVei Serial NOT NULL AUTO_INCREMENT,
+	CodTpVei Serial NOT NULL,
 	tipopdsg Varchar(100),
  Primary Key (CodTpVei)) ENGINE = innodb;
 
 Create table FotosVei (
-	CodFoto Serial NOT NULL AUTO_INCREMENT,
+	CodFoto Serial NOT NULL,
 	foto Varchar(250),
 	dataft Date,
 	CodVei Bigint UNSIGNED NOT NULL,
  Primary Key (CodFoto,CodVei)) ENGINE = innodb;
 
 Create table Tipouti (
-	CodTipoUti Serial NOT NULL AUTO_INCREMENT,
+	CodTipoUti Serial NOT NULL,
 	tpudsg Varchar(100),
  Primary Key (CodTipoUti)) ENGINE = innodb;
 
 Create table Favoritos (
-	CodCar Serial NOT NULL AUTO_INCREMENT,
+	CodCar Serial NOT NULL,
 	CodVei Bigint UNSIGNED NOT NULL,
 	CodCLi Bigint UNSIGNED NOT NULL,
  Primary Key (CodCar)) ENGINE = innodb;
 
 Create table Cliente (
-	CodCLi Serial NOT NULL AUTO_INCREMENT,
+	CodCLi Serial NOT NULL,
 	clinome Varchar(100),
 	climail Varchar(100),
 	clitel Int,
@@ -84,46 +87,47 @@ Create table Cliente (
  Primary Key (CodCLi)) ENGINE = innodb;
 
 Create table Iva (
-	CodIva Serial NOT NULL AUTO_INCREMENT,
+	CodIva Serial NOT NULL,
 	ivavalor Float,
 	ivadsg Varchar(20),
 	CodVei Bigint UNSIGNED NOT NULL,
  Primary Key (CodIva)) ENGINE = innodb;
 
 Create table Modelo (
-	CodMod Serial NOT NULL AUTO_INCREMENT,
+	CodMod Serial NOT NULL,
 	CodMarca Bigint UNSIGNED NOT NULL,
 	moddgs Varchar(100),
  Primary Key (CodMod)) ENGINE = innodb;
 
 Create table Marca (
-	CodMarca Serial NOT NULL AUTO_INCREMENT,
+	CodMarca Serial NOT NULL,
 	mardsg Varchar(100),
  Primary Key (CodMarca)) ENGINE = innodb;
 
 Create table Anuncio (
-	CodAnu Serial NOT NULL AUTO_INCREMENT,
+	CodAnu Serial NOT NULL,
 	dataanu Date,
 	estadoanu Varchar(50),
 	CodCLi Bigint UNSIGNED NOT NULL,
  Primary Key (CodAnu)) ENGINE = innodb;
 
 Create table Combustivel (
-	Codcomb Serial NOT NULL AUTO_INCREMENT,
+	Codcomb Serial NOT NULL,
 	combdsg Varchar(20),
  Primary Key (Codcomb)) ENGINE = innodb;
 
-Create table Mensagens (
-	CodMens Serial NOT NULL,
-	menscont Text,
-	mensdata Datetime,
-	mensstatus Enum(),
-	CodEmissor Bigint UNSIGNED NOT NULL,
-	Codrecetor Bigint UNSIGNED NOT NULL,
- Primary Key (CodMens)) ENGINE = innodb;
+CREATE TABLE Mensagens (
+    CodMens Serial NOT NULL,
+    menscont TEXT,
+    mensdata DATETIME,
+    mensstatus ENUM('lida', 'não lida') DEFAULT 'não lida',
+    CodEmissor BIGINT UNSIGNED NOT NULL,
+    CodRecetor BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (CodMens)) ENGINE= innodb;
+
 
 Create table TipoCaixa (
-	CodCai Serial NOT NULL AUTO_INCREMENT,
+	CodCai Serial NOT NULL,
  Primary Key (CodCai)) ENGINE = innodb;
 
 
