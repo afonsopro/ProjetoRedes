@@ -93,7 +93,7 @@
 <!-- Seção de Botões (Comprar / Vender) com Imagem e Gradiente -->
 <section style="position: relative; text-align: center; margin-top: 40px;">
     <!-- Imagem de Fundo com Gradiente -->
-    <figure style="margin: 0; background-image: url('imagens/carros.jpg'); background-size: cover; background-position: center; height: 400px;">
+    <figure style="margin: 0; background-image: url('imagens/carros.jpg'); background-size: cover; background-position: center; background-attachment: fixed; height: 400px;">
         <!-- Gradiente com Opacidade -->
         <figcaption style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(243, 156, 18, 0.7), rgba(230, 126, 34, 0.7));"></figcaption>
 
@@ -109,7 +109,5 @@
         Vender
     </button>
 </header>
-
-
 </body>
 </html>
