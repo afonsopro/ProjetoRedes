@@ -1,8 +1,8 @@
 	Tarefas Projeto LealCars
 
-Fazer o menu
+Fazer o menu - X
 Fazer sistema de filtragem
-Fazer pagina Contactos e Sobre nós
+Fazer pagina Contactos e Sobre nós - X
 Fazer página para cada automóvel
 Fazer página de favoritos
 Fazer login e criar conta
