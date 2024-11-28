@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	//ligação ao servidor e à base de dados
-	include "ligamysql.php";
+	include "includes/ligamysql.php";
 	//indicação do script a ser executado, cmd é definido aqui e de seguida verifica-se no switch o script a executar
 	if (isset($_REQUEST['cmd'])) $cmd=$_REQUEST['cmd']; else $cmd='home';
 	//echo $_REQUEST['cmd'];
@@ -16,19 +16,33 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
-	<!--Inclusão do menu apartir de um ficheiro externo-->
-	<?php	
-		include 'menu.php';
-	?>
-	<br><br>
-    <?php
+	<?php
+    if(isset($_SESSION['climail'])){	
+        require 'includes/menu1.php';
+    }
+    else{
+        require 'includes/menu.php';
+    }
+	
+	if(isset($_SESSION['climail'])){
 		switch($cmd) {
-			case 'home': require('home.php'); break;
-			//Cliente
-			case 'add-cli' : require('cliente/addcli.php'); break;
-			case 'ins-cli' : require('cliente/inscli.php'); break;
-			default : echo "Opção invalida sem sessão<br>Faça login em Início"; break;
+			case 'home': require('includes/home.php'); break;
+			case 'logout' : require('login/logout.php'); break;
+			
+			default    : echo "Opção invalida com sessão"; break;
+			
 		}
+	}
+	else{
+		switch($cmd) {
+			case 'home': require('includes/home.php'); break;
+			case 'registar' : require('registar/registar.php'); break;
+			case 'registar1' : require('registar/registar1.php'); break;
+			case 'login' : require('login/login.php'); break;
+			case 'login1' : require('login/login1.php'); break;
+			default : echo "Opção invalida sem sessão<br>Faça login em Início"; break;
+	}
+	}
 	?>
 </body>
 </html>
