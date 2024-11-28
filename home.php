@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <title>Procura de Carros</title>
-    <style>
-        /* Animação de mouse over */
-        .transparent-button:hover {
-            background-color: #f39c12; /* Amarelo escuro */
-            color: black;
-            transform: scale(1.1);
-        }
-    </style>
-</head>
-<body style="margin: 0; font-family: Poppins, sans-serif; background-color: #f4f4f4;"> 
-
 <h1 style="text-align: center; color: #333; margin-top: 20px; font-size: 40px"><i>Encontre o Carro Perfeito</i></h1>
 <br>
 <form action="/buscar" method="POST" style="max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px;">
@@ -26,12 +8,11 @@
         <input type="text" name="modelo" placeholder="Ex.: Golf GTI" style="width: 90%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
     </label>
 
-	<!-- Quilómetros Percorridos -->
+    <!-- Quilómetros Percorridos -->
     <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
         Quilómetros Percorridos:
         <input type="number" name="kilometros" placeholder="Ex.: 50000" min="0" style="width: 96%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
     </label>
-
     <!-- Tipo de Veículo -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Tipo de Veículo:
@@ -99,15 +80,37 @@
 
         <!-- Conteúdo Principal -->
         <header style="position: relative; z-index: 1; color: white; padding: 60px 20px; text-align: center;">
-    <h2 style="font-size: 28px; margin-bottom: 20px;">Encontre ou Venda o Carro dos Seus Sonhos!</h2>
-    
-    <!-- Botões alinhados horizontalmente -->
-    <button style="padding: 15px 30px; font-family: Poppins; background-color: white; color: #f39c12; border: 2px solid #f39c12; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; margin-right: 20px;">
-        Comprar
-    </button>
-    <button style="padding: 15px 30px; font-family: Poppins; background-color: white; color: #f39c12; border: 2px solid #f39c12; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
-        Vender
-    </button>
-</header>
-</body>
-</html>
+            <h2 style="font-size: 32px; margin-bottom: 20px;">Venda o seu carro usado e compre o carro dos seus sonhos!</h2>
+            <br>
+            <!-- Botões e Parágrafos alinhados horizontalmente -->
+            <div style="display: flex; justify-content: center; gap: 60px; align-items: center;">
+                <div>
+                    <!-- Parágrafo para Promover a Compra -->
+                    <p style="font-size: 18px; color: #fff; max-width: 300px; margin: 0 auto 15px auto;">Explore nossa vasta seleção de veículos e encontre o carro perfeito para você!</p>
+                    <button style="padding: 15px 30px; font-family: Poppins; background-color: white; color: #f39c12; border: 2px solid #f39c12; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='white'; this.style.border='2px solid white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#f39c12'; this.style.border='2px solid #f39c12';">
+                        Comprar
+                    </button>
+                </div>
+                <div>
+                    <!-- Parágrafo para Promover a Venda -->
+                    <p style="font-size: 18px; color: #fff; max-width: 300px; margin: 0 auto 15px auto;">Pronto para vender seu carro? Anuncie conosco e alcance milhares de compradores!</p>
+                    <button style="padding: 15px 30px; font-family: Poppins; background-color: white; color: #f39c12; border: 2px solid #f39c12; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='white'; this.style.border='2px solid white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#f39c12'; this.style.border='2px solid #f39c12';">
+                        Vender
+                    </button>
+                </div>
+            </div>
+        </header>
+    </figure>
+</section>
+<br><br>
+<h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios populares</i></h2>
+<br><br><br><br>
+<h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios mais baratos</i></h2>
+<br><br><br><br><br><br>
+<footer>
+    <footer id="footer"; style="background-color: #f39c12; color: white; text-align: center; padding: 10px; position: sticky; bottom: 0; width: 98.6%;">
+        <p>Contactos: +351 961 234 567 | Email: Lealcars@gmail.com</p>
+        <p>Av. Pedro Nunes Nº1, Rio de Mouro, Sintra, Lisboa, Portugal</p>
+        <p>&copy; 2024 LealCars. Todos os direitos reservados.</p>
+    </footer>
+</footer>
