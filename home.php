@@ -165,6 +165,7 @@ function gerarCartoesVeiculosRecentes($lig) {
             $potencia = $lin['veipot'] . ' cv';
             $preco = number_format($lin['veipre'], 2, ',', ' ') . ' EUR';
             $descricao = $lin['veidescricao']; // Descrição do veículo
+            $foto = $lin['veifoto'];
             $codVei = $lin['CodVei']; // ID único do veículo
 
             // Criação do cartão com botão
@@ -172,7 +173,7 @@ function gerarCartoesVeiculosRecentes($lig) {
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
                 <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
-                        <img src="imagens/carros.jpg" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
+                        <img src="Imagens/' . $foto . '" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($potencia) . '</p>
@@ -230,6 +231,7 @@ function gerarCartoesVeiculosBaratos($lig) {
             $combustivel = $lin['Codcomb']; // Mapear códigos de combustível, se necessário
             $potencia = $lin['veipot'] . ' cv';
             $preco = number_format($lin['veipre'], 2, ',', ' ') . ' EUR';
+            $foto = $lin['veifoto'];
             $descricao = $lin['veidescricao']; // Descrição do veículo
             $codVei = $lin['CodVei']; // ID único do veículo
 
@@ -238,7 +240,7 @@ function gerarCartoesVeiculosBaratos($lig) {
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
                 <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
-                        <img src="imagens/carros.jpg" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
+                        <img src="imagens/' . $foto . ' alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($potencia) . '</p>
