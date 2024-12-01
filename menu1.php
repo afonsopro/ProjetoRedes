@@ -80,7 +80,7 @@
 </head>
 <body>
     <nav style="background-color: #303030; color: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; font-size: 20px;">
-        <a href="#" class="logo" style="font-size: 32px; font-weight: bold; font-style: italic; text-decoration: none; color: #ffffff;">
+        <a href="index.php?cmd=home" class="logo" style="font-size: 32px; font-weight: bold; font-style: italic; text-decoration: none; color: #ffffff;">
             <span class="leal" style="color: #ffffff;">Leal</span><span style="color: #f39c12;">Cars</span>
         </a>
 
@@ -91,10 +91,10 @@
 
         <ul style="display: flex; gap: 20px; list-style-type: none; padding: 0; margin: 0; margin-right: 40px;">
             <li style="font-size: 14px;">
-                <a href="#sobre-nos" style="color: #ffffff; text-decoration: none;">Sobre Nós</a>
+                <a href="index.php?cmd=sobre" style="color: #ffffff; text-decoration: none;">Sobre Nós</a>
             </li>
             <li style="font-size: 14px;">
-                <a href="#contactos" style="color: #ffffff; text-decoration: none;">Contactos</a>
+                <a href="index.php?cmd=contactos" style="color: #ffffff; text-decoration: none;">Contactos</a>
             </li>
         </ul>
 
@@ -109,6 +109,9 @@
         <div class="session-info">
             <!-- Foto do usuário -->
             <img src="./Imagens/<?php echo $_SESSION['Clifoto']; ?>" alt="User Profile" class="session-img">
+			<a href="index.php?cmd=favoritos" style="text-decoration: none;">
+                <img src="Imagens/star.png" alt="Star" style="width: 30px; height: 30px;">
+            </a>
             <!-- Separador -->
             <span class="separator">|</span>
 
