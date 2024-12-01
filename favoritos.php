@@ -11,13 +11,12 @@ $CodCLi = $cliente['CodCLi'];
 // Busca os veículos favoritos do cliente
 $query_favoritos = $lig->prepare("
     SELECT 
-        Favoritos.CodCar, 
-        Veiculo.veidescricao, 
-        Veiculo.veipre, 
-        FotosVei.foto 
+        favoritos.CodCar, 
+        veiculo.veidescricao, 
+        veiculo.veipre, 
+		veiculo.fotovei 
     FROM Favoritos
     INNER JOIN Veiculo ON Favoritos.CodVei = Veiculo.CodVei
-    LEFT JOIN FotosVei ON Veiculo.CodVei = FotosVei.CodVei
     WHERE Favoritos.CodCLi = ?
 ");
 $query_favoritos->bind_param("i", $CodCLi);
@@ -117,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
         <?php else: ?>
             <?php while ($fav = $result_favoritos->fetch_assoc()): ?>
                 <article class="favorite-item">
-                    <img src="uploads/<?= htmlspecialchars($fav['foto']) ?>" alt="Foto do Veículo">
+                    <img src="imagens/<?= htmlspecialchars($fav['fotovei']) ?>" alt="Foto do Veículo">
                     <div>
                         <h4><?= htmlspecialchars($fav['veidescricao']) ?></h4>
                         <p>Preço: €<?= htmlspecialchars(number_format($fav['veipre'], 2)) ?></p>
