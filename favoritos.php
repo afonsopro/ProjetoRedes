@@ -1,15 +1,9 @@
 <?php
-// Verifica se o cliente está logado
-session_start();
-if (!isset($_SESSION['climail'])) {
-    echo "<p style='text-align: center; font-size: 18px; color: #666;'>Você precisa estar logado para acessar os favoritos.</p>";
-    echo "<p style='text-align: center;'><a href='index.php?cmd=login' style='color: #f39c12;'>Clique aqui para fazer login.</a></p>";
-    exit;
-}
+
 
 // Obtém o ID do cliente logado com base no email armazenado na sessão
 $email = $_SESSION['climail'];
-$query_cliente = $conn->prepare("SELECT CodCLi FROM Cliente WHERE climail = ?");
+$query_cliente = $lig->prepare("SELECT CodCLi FROM cliente WHERE climail = ?");
 $query_cliente->bind_param("s", $email);
 $query_cliente->execute();
 $result_cliente = $query_cliente->get_result();
@@ -17,7 +11,7 @@ $cliente = $result_cliente->fetch_assoc();
 $CodCLi = $cliente['CodCLi'];
 
 // Busca os veículos favoritos do cliente
-$query_favoritos = $conn->prepare("
+$query_favoritos = $lig->prepare("
     SELECT 
         Favoritos.CodCar, 
         Veiculo.veidescricao, 
@@ -35,7 +29,7 @@ $result_favoritos = $query_favoritos->get_result();
 // Processa a remoção de um favorito
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
     $CodCar = $_POST['CodCar'];
-    $query_remove = $conn->prepare("DELETE FROM Favoritos WHERE CodCar = ? AND CodCLi = ?");
+    $query_remove = $lig->prepare("DELETE FROM Favoritos WHERE CodCar = ? AND CodCLi = ?");
     $query_remove->bind_param("ii", $CodCar, $CodCLi);
     $query_remove->execute();
     header("Location: index.php?cmd=favoritos"); // Atualiza a página
@@ -75,4 +69,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
     </section>
 </body>
 </html>
-
