@@ -1,6 +1,4 @@
 <?php
-
-
 // Obtém o ID do cliente logado com base no email armazenado na sessão
 $email = $_SESSION['climail'];
 $query_cliente = $lig->prepare("SELECT CodCLi FROM cliente WHERE climail = ?");
@@ -43,6 +41,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <style>
+        /* Estilos para o botão de Remover (X) */
+        .remove-btn {
+            background-color: transparent;
+            border: none;
+            color: #d9534f;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        /* Estilos para o botão Mostrar Mais */
+        .show-more-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body style="margin: 0; padding: 20px; font-family: 'Poppins', sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6;">
     <h2 style="text-align: center;">Os Meus Favoritos</h2>
@@ -59,10 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
                     </div>
                     <form method="POST" style="margin: 0;">
                         <input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
-                        <button type="submit" name="remove_favorite" style="background-color: #d9534f; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer;">
-                            Remover
+                        <button type="submit" name="remove_favorite" class="remove-btn">
+                            &#10005; <!-- Ícone de 'X' -->
                         </button>
                     </form>
+                    <a href="detalhes.php?CodCar=<?= $fav['CodCar'] ?>" class="show-more-btn">
+                        Mostrar Mais
+                    </a>
                 </article>
             <?php endwhile; ?>
         <?php endif; ?>
