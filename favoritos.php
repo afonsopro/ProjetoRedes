@@ -30,10 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
     $query_remove = $lig->prepare("DELETE FROM Favoritos WHERE CodCar = ? AND CodCLi = ?");
     $query_remove->bind_param("ii", $CodCar, $CodCLi);
     $query_remove->execute();
-    header("Location: index.php?cmd=favoritos"); // Atualiza a página
-    exit;
+    
+    // Redireciona para a página de favoritos após a remoção
+    header("Location: index.php?cmd=favoritos");
+    exit;  // Garante que o script pare e a página seja redirecionada
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -71,20 +74,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
         <?php else: ?>
             <?php while ($fav = $result_favoritos->fetch_assoc()): ?>
                 <article style="margin-bottom: 20px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <img src="<?= htmlspecialchars($fav['foto']) ?>" alt="Foto do Veículo" style="width: 120px; height: 80px; object-fit: cover; border-radius: 10px;">
+                    <img src="uploads/<?= htmlspecialchars($fav['foto']) ?>" alt="Foto do Veículo" style="width: 120px; height: 80px; object-fit: cover; border-radius: 10px;">
                     <div style="flex: 1; margin-left: 20px;">
                         <h4 style="margin: 0;"><?= htmlspecialchars($fav['veidescricao']) ?></h4>
                         <p style="margin: 0; font-size: 16px; color: #666;">Preço: €<?= htmlspecialchars(number_format($fav['veipre'], 2)) ?></p>
                     </div>
-                    <form method="POST" style="margin: 0;">
-                        <input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
-                        <button type="submit" name="remove_favorite" class="remove-btn">
-                            &#10005; <!-- Ícone de 'X' -->
-                        </button>
-                    </form>
-                    <a href="detalhes.php?CodCar=<?= $fav['CodCar'] ?>" class="show-more-btn">
-                        Mostrar Mais
-                    </a>
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end;">
+                        <form method="POST" style="margin: 0;">
+                            <input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
+                            <button type="submit" name="remove_favorite" class="remove-btn">
+                                &#10005; <!-- Ícone de 'X' -->
+                            </button>
+                        </form>
+                        <a href="detalhes.php?CodCar=<?= $fav['CodCar'] ?>" class="show-more-btn">
+                            Mostrar Mais
+                        </a>
+                    </div>
                 </article>
             <?php endwhile; ?>
         <?php endif; ?>
