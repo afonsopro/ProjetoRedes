@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
             color: #d9534f;
             font-size: 20px;
             cursor: pointer;
+            margin-bottom: 10px;
         }
         /* Estilos para o botão Mostrar Mais */
         .show-more-btn {
@@ -64,23 +65,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
             cursor: pointer;
             text-decoration: none;
         }
+        .favorites-container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .favorite-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .favorite-item img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .favorite-item div {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .favorite-item h4 {
+            margin: 0;
+        }
+        .favorite-item p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+        .actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+        }
     </style>
 </head>
 <body style="margin: 0; padding: 20px; font-family: 'Poppins', sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6;">
     <h2 style="text-align: center;">Os Meus Favoritos</h2>
-    <section style="margin: 0 auto; max-width: 800px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <section class="favorites-container">
         <?php if ($result_favoritos->num_rows === 0): ?>
             <p style="text-align: center; font-size: 18px; color: #666;">Nenhum veículo adicionado aos favoritos ainda.</p>
         <?php else: ?>
             <?php while ($fav = $result_favoritos->fetch_assoc()): ?>
-                <article style="margin-bottom: 20px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
-                    <img src="uploads/<?= htmlspecialchars($fav['foto']) ?>" alt="Foto do Veículo" style="width: 120px; height: 80px; object-fit: cover; border-radius: 10px;">
-                    <div style="flex: 1; margin-left: 20px;">
-                        <h4 style="margin: 0;"><?= htmlspecialchars($fav['veidescricao']) ?></h4>
-                        <p style="margin: 0; font-size: 16px; color: #666;">Preço: €<?= htmlspecialchars(number_format($fav['veipre'], 2)) ?></p>
+                <article class="favorite-item">
+                    <img src="uploads/<?= htmlspecialchars($fav['foto']) ?>" alt="Foto do Veículo">
+                    <div>
+                        <h4><?= htmlspecialchars($fav['veidescricao']) ?></h4>
+                        <p>Preço: €<?= htmlspecialchars(number_format($fav['veipre'], 2)) ?></p>
                     </div>
-                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end;">
-                        <form method="POST" style="margin: 0;">
+                    <div class="actions">
+                        <form method="POST">
                             <input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
                             <button type="submit" name="remove_favorite" class="remove-btn">
                                 &#10005; <!-- Ícone de 'X' -->
