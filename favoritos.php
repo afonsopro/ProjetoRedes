@@ -1,12 +1,11 @@
 <?php
 // Verifica se o cliente está logado
+session_start();
 if (!isset($_SESSION['climail'])) {
-    echo "Você precisa estar logado para acessar os favoritos.";
+    echo "<p style='text-align: center; font-size: 18px; color: #666;'>Você precisa estar logado para acessar os favoritos.</p>";
+    echo "<p style='text-align: center;'><a href='index.php?cmd=login' style='color: #f39c12;'>Clique aqui para fazer login.</a></p>";
     exit;
 }
-
-// Inclui a conexão com o banco de dados
-require 'includes/ligamysql.php';
 
 // Obtém o ID do cliente logado com base no email armazenado na sessão
 $email = $_SESSION['climail'];
@@ -76,3 +75,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
     </section>
 </body>
 </html>
+
