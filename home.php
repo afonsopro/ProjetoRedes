@@ -171,7 +171,7 @@ function gerarCartoesVeiculosRecentes($lig) {
             // Criação do cartão com botão
             $html .= '
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
-                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
                         <img src="Imagens/' . $foto . '" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
@@ -238,7 +238,7 @@ function gerarCartoesVeiculosBaratos($lig) {
             // Criação do cartão com botão
             $html .= '
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
-                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
                         <img src="imagens/' . $foto . ' alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
