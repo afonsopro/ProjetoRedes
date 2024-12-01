@@ -1,74 +1,106 @@
-<h1 style="text-align: center; color: #333; margin-top: 20px; font-size: 40px"><i>Encontre o Carro Perfeito</i></h1>
 <br>
-<form action="/buscar" method="POST" style="max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px;">
+<h1 style="text-align: center; color: #333; margin-top: 20px; font-size: 40px"><i>Encontre o Carro Perfeito para Si</i></h1>
+<br>
+<form method="POST"  enctype="multipart/form-data" action="index.php?cmd=pesquisa" style="max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px;">
 
-    <!-- Modelo -->
+    <!-- Marca -->
+    <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
+        Marca:<br>
+        <select name="marca" id="marca" placeholder="Ex.: BMW" style="font-family: Poppins; color: #555; width: 80%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+        <option value="">Selecione uma marca</option>
+        <?php
+            $sql="select * from marca order by mardsg";
+            $res=$lig->query($sql);
+            while($lin=$res->fetch_array())
+            {
+                echo "<option value=",$lin['CodMarca'],">",$lin['mardsg'],"</option>\n";
+            }
+            echo "</select>";
+        ?>
+    </label>
+
+   <!-- Modelo --> 
     <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
         Modelo:
-        <input type="text" name="modelo" placeholder="Ex.: Golf GTI" style="width: 90%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
-    </label>
-
-    <!-- Quilómetros Percorridos -->
-    <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
-        Quilómetros Percorridos:
-        <input type="number" name="kilometros" placeholder="Ex.: 50000" min="0" style="width: 96%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
-    </label>
-    <!-- Tipo de Veículo -->
-    <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
-        Tipo de Veículo:
-        <select name="tipo_veiculo" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="sedan">Sedan</option>
-            <option value="suv">SUV</option>
-            <option value="hatch">Hatch</option>
-            <option value="pickup">Pickup</option>
+        <select name="modelo" id="modelo" placeholder="Ex.: Golf GTI" style="color: #555; font-family: Poppins; width: 96%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+            <option value="">Seleciona um modelo</option>
+            <?php
+            $sql="select * from marca order by mardsg";
+            $res=$lig->query($sql);
+            while($lin=$res->fetch_array())
+            {
+                echo "<option value=",$lin['CodMarca'],"; style='font-weight: bold;' disabled>",$lin['mardsg'],"</option>\n";
+                $sql1="select * from modelo where CodMarca = ".$lin['CodMarca']." order by moddgs";
+                $res1=$lig->query($sql1);
+                while($lin1=$res1->fetch_array())
+                {
+                    echo "<option value=",$lin1['CodMod']," data-marca=", $lin1['CodMarca'], ">",$lin1['moddgs'],"</option>\n";        
+                }
+            }
+        ?>
         </select>
     </label>
 
-    <!-- Ano de Fabrico -->
+    <script>
+        document.getElementById('modelo').addEventListener('change', function () {
+            // Obtém a opção selecionada
+            var selectedOption = this.options[this.selectedIndex];
+
+            // Obtém o atributo data-marca da opção selecionada
+            var codMarca = selectedOption.getAttribute('data-marca');
+
+            // Define o valor correspondente no dropdown de marca
+            var marcaDropdown = document.getElementById('marca');
+            marcaDropdown.value = codMarca;
+        });
+
+        document.getElementById('marca').addEventListener('change', function () {
+            var modeloDropdown = document.getElementById('modelo');
+            modeloDropdown.value = "";
+        });
+    </script>
+
+    <!-- Quilómetros Percorridos -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
-        Ano de Fabrico:
-        <input type="number" name="ano_fabrico" placeholder="Ex.: 2020" min="1900" style="width: 94%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
+        Quilómetros Percorridos (menos que):
+        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" style="width: 95%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
     </label>
 
     <!-- Preço -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
-        Preço (€):
-        <input type="number" name="preco" placeholder="Ex.: 25000" min="0" style="width: 94%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
-    </label>
-
-    <!-- Cor -->
-    <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
-        Cor:
-        <input type="text" name="cor" placeholder="Ex.: Preto" style="width: 94%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
+        Preço até (€):
+        <input type="number" name="preco_max" placeholder="Ex.: 25000" min="1" style="width: 95%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
     </label>
 
     <!-- Tipo de Combustível -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Tipo de Combustível:
-        <select name="combustivel" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="gasolina">Gasolina</option>
-            <option value="diesel">Diesel</option>
-            <option value="hibrido">Híbrido</option>
-            <option value="eletrico">Elétrico</option>
+        <select name="combustivel" style="font-family: Poppins; color: #555; width: 99.5%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+            <option value="">Selecione um tipo de combústivel</option>
+            <?php
+                $sql="select * from combustivel";
+                $res=$lig->query($sql);
+                while($lin=$res->fetch_array())
+                {
+                    echo "<option value=",$lin['Codcomb'],">",$lin['combdsg'],"</option>\n";
+                }
+                echo "</select>";
+            ?>
         </select>
     </label>
 
-    <!-- Número de Lugares -->
-    <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
-        Número de Lugares:
-        <input type="number" name="num_lugares" placeholder="Ex.: 5" min="1" style="width: 94%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
-    </label>
-
-    <!-- Potência e Número de Portas (Ocultos) -->
-    <input type="hidden" name="potencia" value="">
-    <input type="hidden" name="num_portas" value="">
-
-    <!-- Botão de Submissão -->
-    <button type="submit" style="width: 100%; padding: 12px; background-color: #f39c12; font-family: 'Poppins'; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-        Procurar Carros
-    </button>
+    <!-- Botão e Link -->
+    <div style="flex: 1 1 100%; display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+        <!-- Pesquisa Avançada -->
+        <div style="flex: 1; text-align: center; position: relative;">
+            <a href="index.php?cmd=pesquisa" style="font-size: 16px; font-weight: bold; color: #f39c12; text-decoration: none; position: relative; z-index: 1;">Pesquisa Avançada</a>
+            <img src="imagens/pesquisa.png" alt="Ícone Pesquisa" style="position: absolute; top: 0; left: 33%; transform: translate(-50%, 10%); z-index: 0; height: 20px; width: auto;">
+        </div>
+        <!-- Botão de Procurar -->
+        <button type="submit" style="flex: 1; max-width: 50%; padding: 12px; background-color: #f39c12; font-family: 'Poppins'; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; text-align: center;">
+            Procurar Carros
+        </button>
+    </div>
 </form>
 <br>
 <!-- Seção de Botões (Comprar / Vender) com Imagem e Gradiente -->
@@ -103,10 +135,136 @@
     </figure>
 </section>
 <br><br>
-<h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios populares</i></h2>
-<br><br><br><br>
+<h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios mais recentes</i></h2>
+<br>
+<?php
+function gerarCartoesVeiculosRecentes($lig) {
+    // Consulta para buscar os veículos com suas marcas e modelos
+    $sql = "
+        SELECT veiculo.CodVei, veiculo.veiano, veiculo.veikm, veiculo.veidescricao, veiculo.Codcomb, veiculo.veipot, veiculo.veipre, 
+               marca.mardsg AS marca, modelo.moddgs AS modelo
+        FROM veiculo
+        INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod
+        INNER JOIN marca ON modelo.CodMarca = marca.CodMarca
+        ORDER BY veiculo.veipre DESC";
+    
+    $res = $lig->query($sql);
+
+    if ($res->num_rows > 0) {
+        // Início da estrutura dos cartões
+        $html = '<table style="border-spacing: 15px; width: 100%; text-align: center; padding: 0 5%;">';
+        $html .= '<tr>';
+
+        $index = 0;
+        while ($lin = $res->fetch_assoc()) {
+            // Dados de cada veículo
+            $titulo = $lin['marca'] . ' ' . $lin['modelo'];
+            $ano = $lin['veiano'];
+            $km = number_format($lin['veikm'], 0, ',', ' ') . ' km';
+            $combustivel = $lin['Codcomb']; // Mapear códigos de combustível, se necessário
+            $potencia = $lin['veipot'] . ' cv';
+            $preco = number_format($lin['veipre'], 2, ',', ' ') . ' EUR';
+            $descricao = $lin['veidescricao']; // Descrição do veículo
+            $codVei = $lin['CodVei']; // ID único do veículo
+
+            // Criação do cartão com botão
+            $html .= '
+            <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
+                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                    <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
+                        <img src="imagens/carros.jpg" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
+                        <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
+                        <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
+                        <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($potencia) . '</p>
+                        <p style="font-size: 0.8em; font-family: Poppins; color: #666; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($descricao) . '</p>
+                        <p style="font-size: 1.2em; font-family: Poppins; color: #f39c12; font-weight: bold; margin: 10px 0;">' . htmlspecialchars($preco) . '</p>
+                    </button>
+                </a>
+            </td>
+            ';
+
+            // Criar nova linha a cada 4 cartões
+            $index++;
+            if ($index % 4 == 0 && $index != $res->num_rows) {
+                $html .= '</tr><tr>';
+            }
+        }
+
+        // Fechamento da estrutura
+        $html .= '</tr></table>';
+        return $html;
+    } else {
+        return '<p>Nenhum veículo encontrado.</p>';
+    }
+}
+
+// Exibir os cartões
+echo gerarCartoesVeiculosRecentes($lig);
+?>
+<br><br>
 <h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios mais baratos</i></h2>
-<br><br><br><br><br><br>
-<footer>
-    <?php include 'footer.php'; ?>
-</footer>
+<?php
+function gerarCartoesVeiculosBaratos($lig) {
+    // Consulta para buscar os veículos com suas marcas e modelos
+    $sql = "
+        SELECT veiculo.CodVei, veiculo.veiano, veiculo.veikm, veiculo.veidescricao, veiculo.Codcomb, veiculo.veipot, veiculo.veipre, 
+               marca.mardsg AS marca, modelo.moddgs AS modelo
+        FROM veiculo
+        INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod
+        INNER JOIN marca ON modelo.CodMarca = marca.CodMarca
+        ORDER BY veiculo.veipre";
+    
+    $res = $lig->query($sql);
+
+    if ($res->num_rows > 0) {
+        // Início da estrutura dos cartões
+        $html = '<table style="border-spacing: 15px; width: 100%; text-align: center; padding: 0 5%;">';
+        $html .= '<tr>';
+
+        $index = 0;
+        while ($lin = $res->fetch_assoc()) {
+            // Dados de cada veículo
+            $titulo = $lin['marca'] . ' ' . $lin['modelo'];
+            $ano = $lin['veiano'];
+            $km = number_format($lin['veikm'], 0, ',', ' ') . ' km';
+            $combustivel = $lin['Codcomb']; // Mapear códigos de combustível, se necessário
+            $potencia = $lin['veipot'] . ' cv';
+            $preco = number_format($lin['veipre'], 2, ',', ' ') . ' EUR';
+            $descricao = $lin['veidescricao']; // Descrição do veículo
+            $codVei = $lin['CodVei']; // ID único do veículo
+
+            // Criação do cartão com botão
+            $html .= '
+            <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
+                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                    <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
+                        <img src="imagens/carros.jpg" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
+                        <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
+                        <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
+                        <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($potencia) . '</p>
+                        <p style="font-size: 0.8em; font-family: Poppins; color: #666; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($descricao) . '</p>
+                        <p style="font-size: 1.2em; font-family: Poppins; color: #f39c12; font-weight: bold; margin: 10px 0;">' . htmlspecialchars($preco) . '</p>
+                    </button>
+                </a>
+            </td>
+            ';
+
+            // Criar nova linha a cada 4 cartões
+            $index++;
+            if ($index % 4 == 0 && $index != $res->num_rows) {
+                $html .= '</tr><tr>';
+            }
+        }
+
+        // Fechamento da estrutura
+        $html .= '</tr></table>';
+        return $html;
+    } else {
+        return '<p>Nenhum veículo encontrado.</p>';
+    }
+}
+
+// Exibir os cartões
+echo gerarCartoesVeiculosBaratos($lig);
+?>
+<br><br>
