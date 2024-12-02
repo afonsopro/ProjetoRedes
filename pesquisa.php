@@ -52,7 +52,7 @@
     <!-- Tipo de Veículo -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Tipo de Veículo:<br>
-        <select name="tipo_veiculo" style="font-family: Poppins; color: #555; width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <select name="tipo_veiculo" style="font-family: Poppins; color: #555; width: 97%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
             <option value="">Selecione um tipo</option>
             <?php
             $sql="SELECT * FROM tipovei ORDER BY tipopdsg";
@@ -67,39 +67,39 @@
     <!-- Preço -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Preço Mínimo (€):<br>
-        <input type="number" name="preco_min" placeholder="Ex.: 5000" min="0" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="preco_min" placeholder="Ex.: 5000" min="0" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Preço Máximo (€):<br>
-        <input type="number" name="preco_max" placeholder="Ex.: 50000" min="0" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="preco_max" placeholder="Ex.: 50000" min="0" style="width: 90.5%; padding: 8px; color: #303030; font-family: Poppins;  margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Quilómetros -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Quilómetros Máximos:<br>
-        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" style=" color: #303030; font-family: Poppins; width: 93%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Ano -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Ano (De):<br>
-        <input type="number" name="ano_min" placeholder="Ex.: 2000" min="1900" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="ano_min" placeholder="Ex.: 2000" min="1900" style=" color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Ano (Até):<br>
-        <input type="number" name="ano_max" placeholder="Ex.: 2024" min="1900" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="ano_max" placeholder="Ex.: 2024" min="1900" style=" color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Número de Portas -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Número de Portas:<br>
-        <input type="number" name="portas" min="0" placeholder="Ex.: 4" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="portas" min="0" placeholder="Ex.: 4" style=" color: #303030; font-family: Poppins; width: 93%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Número de Lugares -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Número de Lugares:<br>
-        <input type="number" name="lugares" min="1" placeholder="Ex.: 5" style="width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="lugares" min="1" placeholder="Ex.: 5" style=" color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Cor -->
@@ -119,10 +119,11 @@
     </label>
 
     <!-- Botão de Pesquisa -->
-    <button type="submit" style="flex: 1 1 150%; font-family: Poppins; max-width: 250px; margin: 10px auto; padding: 15px 10px; background-color: #f39c12; color: white; font-size: 14px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer;">
+    <button type="submit" style="flex: 1 1 150%; font-family: Poppins; max-width: 250px; margin: 10px; padding: 15px 15px; background-color: #f39c12; color: white; font-size: 14px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer;">
         Aplicar Filtro
     </button>
 </form>
+<br>
 <?php
 // Atribuição de variáveis com base em $_REQUEST
 $marca = !empty($_REQUEST['marca']) ? intval($_REQUEST['marca']) : null;
@@ -138,13 +139,13 @@ $lugares = !empty($_REQUEST['lugares']) ? intval($_REQUEST['lugares']) : null;
 $cor = !empty($_REQUEST['cor']) ? $lig->real_escape_string($_REQUEST['cor']) : null;
 
 // Início da consulta SQL
-$sql = "SELECT * FROM veiculo WHERE 1=1";
+$sql = "SELECT veiculo.*, marca.mardsg AS marca, modelo.moddgs AS modelo FROM veiculo INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod INNER JOIN marca ON modelo.CodMarca = marca.CodMarca WHERE 1=1";
 
 // Construção dinâmica do filtro SQL
 
 // Marca
 if ($marca !== null) {
-    $sql .= " AND CodMarca = $marca";
+    $sql .= " AND modelo.CodMarca = $marca";
 }
 
 // Modelo
@@ -206,15 +207,30 @@ $res = $lig->query($sql);
 if ($res->num_rows > 0) {
     while ($lin = $res->fetch_assoc()) {
         // Início da seção do layout para cada veículo
-        echo "<section style='background-color: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 900px; padding: 20px; margin: 20px auto; font-family: Poppins, sans-serif; display: flex; align-items: center; gap: 20px;'>";
+        echo "<section style='background-color: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 87%; padding: 20px; margin: 10px auto; font-family: Poppins, sans-serif; display: flex; align-items: flex-start; gap: 20px; min-height: 200px;'>";
 
-        // Informações do veículo
+        // Foto do veículo (lado esquerdo) com altura ajustada
+        echo "<div style='flex: 0 0 150px; width: auto; height: 200px;  object-fit: cover;'>
+                <img src='Imagens/" . $lin['fotovei'] . " alt='Imagem do Veículo' style='width: 300px; height: 100%; border-radius: 8px;'>
+              </div>";
+
+        // Informações do veículo (lado direito)
         echo "<div style='flex: 1; padding: 10px;'>";
 
-        // Título do veículo (Marca e Modelo)
-        echo "<h3 style='font-size: 22px; font-weight: bold; color: #333; margin-bottom: 10px;'>";
-        echo $lin['CodMod'] . " " . $lin['veidescricao'];
+        // Preço (canto superior direito)
+        echo "<div style='font-size: 25px; font-weight: bold; color: #f39c12; text-align: right;'>";
+        echo "€ " . number_format($lin['veipre'], 2, ',', '.');
+        echo "</div>";
+
+        // Título do veículo (Marca e Modelo) movido um pouco para cima
+        echo "<h3 style='font-size: 22px; font-weight: bold; color: #333; margin-top: -10px; margin-bottom: 10px;'>";  // margin-top ajustado para -10px
+        echo $lin['marca'] . " " . $lin['modelo'];
         echo "</h3>";
+
+        // Título do veículo (Marca e Modelo) movido um pouco para cima
+        echo "<h4 style='font-size: 17px; font-weight: bold; color: #333; margin-top: -10px; margin-bottom: 10px;'>";  // margin-top ajustado para -10px
+        echo $lin['veidescricao'];
+        echo "</h4>";
 
         // Ano e Quilometragem
         echo "<p style='font-size: 14px; color: #555; margin-bottom: 5px;'>";
@@ -234,16 +250,18 @@ if ($res->num_rows > 0) {
         echo "<strong>Combustível:</strong> " . $lin['Codcomb'];
         echo "</p>";
 
-        // Preço
-        echo "<p style='font-size: 20px; font-weight: bold; color: #f39c12; margin-top: 10px;'>";
-        echo "€ " . number_format($lin['veipre'], 2, ',', '.');
-        echo "</p>";
-
         // Final da seção
-        echo "</div>";
-        echo "</section>";
+        echo "</div>"; // Fim das informações do veículo
+        echo "</section>"; // Fim da seção do layout
     }
 } else {
-    echo "<p style='font-family: Poppins, sans-serif; font-size: 14px; color: #333;'>Nenhum veículo encontrado.</p>";
+    echo "<section style='text-align: center; margin-top: 50px;'>";
+    echo "<h1 style='font-size: 60px; color: #f39c12; font-family: Poppins, sans-serif;'>OOOPS!</h1>";
+    echo "<p style='font-size: 22px; color: #333; font-family: Poppins, sans-serif;'>";
+    echo "Parece que nenhum dos nossos veículos encontra-se com os teus parâmetros.";
+    echo "</p>";
+    echo "<a href='index.php?cmd=pesquisa' style='font-size: 18px; color: #f39c12; text-decoration: none; font-family: Poppins, sans-serif;' onmouseover='this.style.textDecoration=\"underline\";' onmouseout='this.style.textDecoration=\"none\";'>Cancelar filtro</a>";
+    echo "</section>";
 }
 ?>
+<br><br><br><br>
