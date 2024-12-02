@@ -14,7 +14,8 @@ include "includes/menu.php";
     <div style="width: 80%; margin: 0 auto;">
         <!-- Header com nome carro e preço -->
         <span style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
-            <h1><?php echo htmlspecialchars($lin['mardsg']);?> <?php echo htmlspecialchars($lin['moddgs']);?></h1>
+            <a href="index.php?cmd=home"><button style="margin: none; background-color: #ffffff; border: 0px solid;"><img src="imagens/voltar.png" alt="" style="height: 35px;"></button></a>
+            <h1 style="margin-left: -650px;"><?php echo htmlspecialchars($lin['mardsg']);?> <?php echo htmlspecialchars($lin['moddgs']);?></h1>
             <h2><?php echo number_format($lin['veipre'], 2, ',', ' ') . " €"; ?></h2>
         </span>
     <section style="display: flex; align-items: center; gap: 20px; padding: 20px;">
@@ -58,10 +59,10 @@ include "includes/menu.php";
 
 
     <h2>Detalhes</h2>
-    <span style="display: block; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
+    <span style="display: block; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 30px;">
         <!-- Subtítulo -->
         <h3>Informações Básicas</h3>
-    <table style="width: 100%; border-collapse: collapse;">
+        <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align:left; height:50px;">Marca</th>
                     <td style="border-bottom: 1px solid #ddd; padding: 8px; height:50px;"><?php echo htmlspecialchars($lin['mardsg']); ?></td>
@@ -84,8 +85,10 @@ include "includes/menu.php";
                 </tr>
             </table>
             <br>
-            <h3>Especificações técnicas</h3>
-    <table style="width: 100%; border-collapse: collapse;">
+
+        <h3>Especificações técnicas</h3>
+
+        <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align:left; height:50px;">Combustível</th>
                     <td style="border-bottom: 1px solid #ddd; padding: 8px; height:50px;"><?php echo htmlspecialchars($lin['combdsg']); ?></td>
@@ -96,14 +99,14 @@ include "includes/menu.php";
                 </tr>
                 <tr>
                     <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align:left; height:50px;">Tipo Veículo</th>
-                    <td style="border-bottom: 1px solid #ddd; padding: 8px; height:50px;"><?php echo htmlspecialchars($lin['tipopdsg']); ?></td>
+                    <td style="border-bottom: 1px solid #ddd; padding: 8px; height:50px;"><?php //echo htmlspecialchars($lin['tipopdsg']); ?>SUV</td>
                 </tr>
                 <tr>
                     <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align:left; height:50px;">Tipo de Caixa</th>
-                    <td style="border-bottom: 1px solid #ddd; padding: 8px; height:50px;"><?php echo htmlspecialchars($lin['caidsg']); ?></td>
+                    <td style="border-bottom: 1px solid #ddd; padding: 8px; height:50px;"><?php //echo htmlspecialchars($lin['caidsg']); ?>Manual</td>
                 </tr>
-            </table>
-        </span>
+        </table>
+    </span>
        
     </div>
         <script>
