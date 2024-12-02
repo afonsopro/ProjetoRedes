@@ -6,7 +6,7 @@
     <!-- Marca -->
     <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
         Marca:<br>
-        <select name="marca" id="marca" placeholder="Ex.: BMW" style="font-family: Poppins; color: #555; width: 80%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+        <select name="marca" id="marca" placeholder="Ex.: BMW" style="font-family: Poppins; color: #555; width: 90%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
         <option value="">Selecione uma marca</option>
         <?php
             $sql="select * from marca order by mardsg";
@@ -22,7 +22,7 @@
    <!-- Modelo --> 
     <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
         Modelo:
-        <select name="modelo" id="modelo" placeholder="Ex.: Golf GTI" style="color: #555; font-family: Poppins; width: 96%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+        <select name="modelo" id="modelo" placeholder="Ex.: Golf GTI" style="color: #555; font-family: Poppins; width: 99.6%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
             <option value="">Seleciona um modelo</option>
             <?php
             $sql="select * from marca order by mardsg";
@@ -63,13 +63,13 @@
     <!-- Quilómetros Percorridos -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Quilómetros Percorridos (menos que):
-        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" style="width: 95%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" style="width: 95%; color: #303030; font-family: Poppins; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
     </label>
 
     <!-- Preço -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Preço até (€):
-        <input type="number" name="preco_max" placeholder="Ex.: 25000" min="1" style="width: 95%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+        <input type="number" name="preco_max" placeholder="Ex.: 25000" min="1" style="width: 95%; color: #303030; font-family: Poppins; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
     </label>
 
     <!-- Tipo de Combustível -->
@@ -119,9 +119,12 @@
                 <div>
                     <!-- Parágrafo para Promover a Compra -->
                     <p style="font-size: 18px; color: #fff; max-width: 300px; margin: 0 auto 15px auto;">Explore nossa vasta seleção de veículos e encontre o carro perfeito para você!</p>
-                    <button style="padding: 15px 30px; font-family: Poppins; background-color: white; color: #f39c12; border: 2px solid #f39c12; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='white'; this.style.border='2px solid white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#f39c12'; this.style.border='2px solid #f39c12';">
-                        Comprar
-                    </button>
+                    <!-- Botão com link para a página de pesquisa -->
+                    <a href="index.php?cmd=pesquisa" style="text-decoration: none;">
+                        <button style="padding: 15px 30px; font-family: Poppins; background-color: white; color: #f39c12; border: 2px solid #f39c12; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='white'; this.style.border='2px solid white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#f39c12'; this.style.border='2px solid #f39c12';">
+                            Comprar
+                        </button>
+                    </a>
                 </div>
                 <div>
                     <!-- Parágrafo para Promover a Venda -->
@@ -141,12 +144,13 @@
 function gerarCartoesVeiculosRecentes($lig) {
     // Consulta para buscar os veículos com suas marcas e modelos
     $sql = "
-        SELECT veiculo.CodVei, veiculo.veiano, veiculo.veikm, veiculo.veidescricao, veiculo.Codcomb, veiculo.veipot, veiculo.veipre, 
+        SELECT veiculo.CodVei, veiculo.veiano, veiculo.veikm, veiculo.veidescricao, veiculo.Codcomb, veiculo.veipot, veiculo.veipre, veiculo.fotovei,
                marca.mardsg AS marca, modelo.moddgs AS modelo
         FROM veiculo
         INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod
         INNER JOIN marca ON modelo.CodMarca = marca.CodMarca
-        ORDER BY veiculo.veipre DESC";
+        ORDER BY veiculo.veipre DESC
+        LIMIT 8";
     
     $res = $lig->query($sql);
 
@@ -165,15 +169,17 @@ function gerarCartoesVeiculosRecentes($lig) {
             $potencia = $lin['veipot'] . ' cv';
             $preco = number_format($lin['veipre'], 2, ',', ' ') . ' EUR';
             $descricao = $lin['veidescricao']; // Descrição do veículo
-            $foto = $lin['veifoto'];
+            $foto = $lin['fotovei'];
             $codVei = $lin['CodVei']; // ID único do veículo
 
             // Criação do cartão com botão
             $html .= '
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
-                <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
-                        <img src="Imagens/' . $foto . '" alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
+                        <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 5px; margin: 5px 0;">
+                            <img src="Imagens/' . $foto . '" alt="Carro" style="width: 92%; height: 90%; object-fit: cover; border-radius: 5px;">
+                        </div>
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($potencia) . '</p>
@@ -202,18 +208,20 @@ function gerarCartoesVeiculosRecentes($lig) {
 // Exibir os cartões
 echo gerarCartoesVeiculosRecentes($lig);
 ?>
+
 <br><br>
 <h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios mais baratos</i></h2>
 <?php
 function gerarCartoesVeiculosBaratos($lig) {
-    // Consulta para buscar os veículos com suas marcas e modelos
+    // Consulta para buscar os veículos com suas marcas e modelos, limitando a 8 registros
     $sql = "
-        SELECT veiculo.CodVei, veiculo.veiano, veiculo.veikm, veiculo.veidescricao, veiculo.Codcomb, veiculo.veipot, veiculo.veipre, 
+        SELECT veiculo.CodVei, veiculo.veiano, veiculo.veikm, veiculo.veidescricao, veiculo.Codcomb, veiculo.veipot, veiculo.veipre, veiculo.fotovei,
                marca.mardsg AS marca, modelo.moddgs AS modelo
         FROM veiculo
         INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod
         INNER JOIN marca ON modelo.CodMarca = marca.CodMarca
-        ORDER BY veiculo.veipre";
+        ORDER BY veiculo.veipre
+        LIMIT 8"; // Limita a 8 registros
     
     $res = $lig->query($sql);
 
@@ -231,16 +239,18 @@ function gerarCartoesVeiculosBaratos($lig) {
             $combustivel = $lin['Codcomb']; // Mapear códigos de combustível, se necessário
             $potencia = $lin['veipot'] . ' cv';
             $preco = number_format($lin['veipre'], 2, ',', ' ') . ' EUR';
-            $foto = $lin['veifoto'];
             $descricao = $lin['veidescricao']; // Descrição do veículo
+            $foto = $lin['fotovei'];
             $codVei = $lin['CodVei']; // ID único do veículo
 
             // Criação do cartão com botão
             $html .= '
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
-                <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
-                        <img src="imagens/' . $foto . ' alt="Carro" style="width: 100%; height: auto; border-radius: 5px;">
+                        <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 5px; margin: 5px 0;">
+                            <img src="imagens/' . $foto . '" alt="Carro" style="width: 92%; height: 90%; object-fit: cover; border-radius: 5px;">
+                        </div>
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($potencia) . '</p>
@@ -269,4 +279,6 @@ function gerarCartoesVeiculosBaratos($lig) {
 // Exibir os cartões
 echo gerarCartoesVeiculosBaratos($lig);
 ?>
+
+
 <br><br>
