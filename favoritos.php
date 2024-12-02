@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
                     <img src="imagens/<?= htmlspecialchars($fav['fotovei']) ?>" alt="Foto do Veículo" style="width: 120px; height: 80px; object-fit: cover; border-radius: 10px;">
                     
                     <!-- Informações do veículo -->
-                    <div style="flex: 1; margin-left: 20px;">
+                    <span style="flex: 1; margin-left: 20px;">
                         <h4 style="margin: 0; font-size: 20px; color: #333;"><?= htmlspecialchars($fav['veidescricao']) ?></h4>
                         <p style="margin: 0; font-size: 16px; color: #666;">Preço: €<?= htmlspecialchars(number_format($fav['veipre'], 2)) ?></p>
-                    </div>
+                    </span>
                     
                     <!-- Ações do favorito -->
-                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end;">
+                    <span style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end;">
                         <!-- Formulário para remover favorito -->
                         <form method="POST" style="margin-bottom: 10px;">
                             <input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
                         <a href="detalhes.php?CodCar=<?= $fav['CodCar'] ?>" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-decoration: none; cursor: pointer;">
                             Mostrar Mais
                         </a>
-                    </div>
+                    </span>
                 </article>
             <?php endwhile; ?>
         <?php endif; ?>
