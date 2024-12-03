@@ -68,12 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
                     <!-- Ações do favorito -->
                     <span style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end;">
                         <!-- Formulário para remover favorito -->
-                        <form method="POST" style="margin-bottom: 10px;">
-                            <input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
-                            <button type="submit" name="remove_favorite" style="background-color: transparent; border: none; color: #d9534f; font-size: 20px; cursor: pointer; padding: 5px;">
-                                &#10005; <!-- Ícone de 'X' para remover -->
-                            </button>
-                        </form>
+						<form method="POST" style="margin-bottom: 10px;">
+							<input type="hidden" name="CodCar" value="<?= $fav['CodCar'] ?>">
+								<button type="submit" name="remove_favorite" 
+									onclick="setTimeout(() => { location.reload(); }, 100);" 
+									style="background-color: transparent; border: none; color: #d9534f; font-size: 20px; cursor: pointer; padding: 5px;">
+									&#10005; <!-- Ícone de 'X' para remover -->
+								</button>
+						</form>
                         
                         <!-- Botão para mostrar mais detalhes -->
                         <a href="detalhes.php?CodCar=<?= $fav['CodCar'] ?>" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-decoration: none; cursor: pointer;">
