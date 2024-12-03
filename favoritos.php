@@ -29,10 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_favorite'])) {
     $query_remove = $lig->prepare("DELETE FROM Favoritos WHERE CodCar = ? AND CodCLi = ?");
     $query_remove->bind_param("ii", $CodCar, $CodCLi);
     $query_remove->execute();
-    
-    // Redireciona para a página de favoritos após a remoção
-    header("Location: index.php?cmd=favoritos");
-    exit;  // Garante que o script pare e a página seja redirecionada
+  
 }
 ?>
 
