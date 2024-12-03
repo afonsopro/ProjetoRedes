@@ -23,11 +23,14 @@
     else{
         require 'includes/menu.php';
     }
-	
 	if(isset($_SESSION['climail'])){
 		switch($cmd) {
 			case 'home': require('includes/home.php'); break;
 			case 'logout' : require('login/logout.php'); break;
+			case 'sobre': require('includes/sobre.php'); break;
+			case 'contactos': require('includes/contactos.php'); break;
+			case 'favoritos': require('includes/favoritos.php'); break;
+			case 'pesquisa': require('includes/pesquisa.php'); break;
 			
 			default    : echo "Opção invalida com sessão"; break;
 			
@@ -40,9 +43,14 @@
 			case 'registar1' : require('registar/registar1.php'); break;
 			case 'login' : require('login/login.php'); break;
 			case 'login1' : require('login/login1.php'); break;
+			case 'pesquisa' : require('includes/pesquisa.php'); break;
+			case 'sobre' : require('includes/sobre.php'); break;
+			case 'contactos' : require('includes/contactos.php'); break;
+			case 'favoritos': require('login/login.php'); break;
 			default : echo "Opção invalida sem sessão<br>Faça login em Início"; break;
 	}
 	}
 	?>
+
 </body>
 </html>
