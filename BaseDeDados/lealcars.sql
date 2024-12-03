@@ -7,6 +7,9 @@
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
+CREATE DATABASE lealcars;
+USE lealcars;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
