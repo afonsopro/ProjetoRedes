@@ -1,3 +1,4 @@
+<nav font-family: Poppins>
 <br>
 <h1 style="text-align: center; color: #333; margin-top: 20px; font-size: 40px"><i>Encontre o Carro Perfeito para Si</i></h1>
 <br>
@@ -279,6 +280,5 @@ function gerarCartoesVeiculosBaratos($lig) {
 // Exibir os cartões
 echo gerarCartoesVeiculosBaratos($lig);
 ?>
-
-
 <br><br>
+</nav>
