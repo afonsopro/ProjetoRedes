@@ -1,12 +1,12 @@
 
-    <nav style="background-color: #303030; color: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; font-size: 20px;">
-        <a href="#" class="logo" style="font-size: 32px; font-weight: bold; font-style: italic; text-decoration: none; color: #ffffff;">
+    <nav style="background-color: #303030; color: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; font-size: 20px; font-family: Poppins;"">
+        <a href="index.php?cmd=home" class="logo" style="font-size: 32px; font-weight: bold; font-style: italic; text-decoration: none; color: #ffffff;">
             <span class="leal" style="color: #ffffff;">Leal</span><span style="color: #f39c12;">Cars</span>
         </a>
 
         <form style="flex-grow: 1; display: flex; justify-content: center; padding-left: 20px; position: relative;">
             <input type="text" placeholder="O que estás à procura?" 
-                   style="padding: 12px 40px 12px 15px; border-radius: 20px; border: 1px solid #ccc; outline: none; width: 400px; background-color: #FFFFFF !important; color: #000000; font-family: 'Poppins'; font-size: 15px; background: url('search.png') no-repeat right 10px center; background-size: 20px;">
+                   style="padding: 12px 40px 12px 15px; border-radius: 20px; border: 1px solid #ccc; outline: none; width: 400px; background-color: #FFFFFF !important; color: #000000; font-family: 'Poppins'; font-size: 15px; background: url('Imagens/search.png') no-repeat right 10px center; background-size: 20px;">
 
             <!-- Adicionando o style inline para o placeholder -->
             <script>
@@ -18,10 +18,10 @@
 
         <ul style="display: flex; gap: 20px; list-style-type: none; padding: 0; margin: 0; margin-right: 40px;">
             <li style="font-size: 14px;">
-                <a href="#sobre-nos" style="color: #ffffff; text-decoration: none;">Sobre Nós</a>
+                <a href="index.php?cmd=sobre" style="color: #ffffff; text-decoration: none;">Sobre Nós</a>
             </li>
             <li style="font-size: 14px;">
-                <a href="#contactos" style="color: #ffffff; text-decoration: none;">Contactos</a>
+                <a href="index.php?cmd=contactos" style="color: #ffffff; text-decoration: none;">Contactos</a>
             </li>
         </ul>
 
@@ -38,7 +38,7 @@
             <a href="index.php?cmd=login" style="text-decoration: none;">
                 <img src="Imagens/signup1.jpg" alt="Signup" style="width: 30px; height: 30px;">
             </a>
-            <a href="#star-page" style="text-decoration: none;">
+            <a href="index.php?cmd=favoritos" style="text-decoration: none;">
                 <img src="Imagens/star.png" alt="Star" style="width: 30px; height: 30px;">
             </a>
         </nav>
