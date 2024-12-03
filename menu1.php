@@ -78,7 +78,7 @@
 
     </style>
 </head>
-<body>
+<body style= "font-family: Poppins;">
     <nav style="background-color: #303030; color: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; font-size: 20px;">
         <a href="index.php?cmd=home" class="logo" style="font-size: 32px; font-weight: bold; font-style: italic; text-decoration: none; color: #ffffff;">
             <span class="leal" style="color: #ffffff;">Leal</span><span style="color: #f39c12;">Cars</span>
