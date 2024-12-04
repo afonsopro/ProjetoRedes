@@ -3,10 +3,11 @@ include "includes/ligamysql.php";
 $car_id = $_REQUEST['id'];
 
 
-$sql="select v.*, moddgs, mardsg, c.*, a.*, co.combdsg from Veiculo v, Modelo, Marca, Cliente c, Anuncio a, Combustivel co where (v.CodMod=Modelo.CodMod AND Modelo.CodMarca=Marca.CodMarca AND v.CodVei=$car_id AND v.CodAnun=a.CodAnu AND a.CodCli=c.CodCli AND v.Codcomb=co.Codcomb)";
+$sql="select v.*, moddgs, mardsg, c.*, a.*, co.combdsg, f.foto from Veiculo v, Modelo, Marca, Cliente c, Anuncio a, Combustivel co, FotosVei f where (v.CodMod=Modelo.CodMod AND Modelo.CodMarca=Marca.CodMarca AND v.CodVei=$car_id AND v.CodAnun=a.CodAnu AND a.CodCli=c.CodCli AND v.Codcomb=co.Codcomb AND v.CodVei=f.CodVei)";
 	$res=$lig->query($sql);
 
 include "includes/menu.php";
+
  while ($lin=$res->fetch_array()){
 ?>
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
@@ -22,13 +23,16 @@ include "includes/menu.php";
         <!-- Carro imagens -->
         <div class="slideshow-container" style="position: relative; width: 100%; max-width: 600px; margin: auto;">
             <div class="slides" style="display: none; width: 100%;">
-                <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 1" style="width:100%">
+                <img src="<?php echo "./imagens/".$lin['fotovei'];?>" alt="Imagem 1" style="width:100%">
             </div>
             <div class="slides" style="display: none; width: 100%;">
                 <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 2" style="width:100%">
             </div>
             <div class="slides" style="display: none; width: 100%;">
                 <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 3" style="width:100%">
+            </div>
+            <div class="slides" style="display: none; width: 100%;">
+                <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 4" style="width:100%">
             </div>
 
             <!-- Botões de navegação -->
