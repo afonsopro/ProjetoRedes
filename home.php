@@ -94,13 +94,14 @@
     <div style="flex: 1 1 100%; display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
         <!-- Pesquisa Avançada -->
         <div style="flex: 1; text-align: center; position: relative;">
-            <a href="index.php?cmd=pesquisa" style="font-size: 16px; font-weight: bold; color: #f39c12; text-decoration: none; position: relative; z-index: 1;">Pesquisa Avançada</a>
+            <a href="index.php?cmd=pesquisa" style="font-size: 16px; font-weight: bold; color: #f39c12; text-decoration: none; position: relative; z-index: 1; transition: color 0.3s ease, text-decoration 0.3s ease;" onmouseover="this.style.textDecoration='underline'; this.style.color='#f39c12';" onmouseout="this.style.textDecoration='none'; this.style.color='#f39c12';">Pesquisa Avançada</a>
             <img src="imagens/pesquisa.png" alt="Ícone Pesquisa" style="position: absolute; top: 0; left: 33%; transform: translate(-50%, 10%); z-index: 0; height: 20px; width: auto;">
         </div>
         <!-- Botão de Procurar -->
-        <button type="submit" style="flex: 1; max-width: 50%; padding: 12px; background-color: #f39c12; font-family: 'Poppins'; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; text-align: center;">
+        <button type="submit" style="flex: 1; max-width: 50%; padding: 12px; background-color: #f39c12; font-family: 'Poppins'; color: white; font-size: 16px; font-weight: bold; border: 2px solid #f39c12; border-radius: 5px; cursor: pointer; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='white'; this.style.color='#f39c12'; this.style.borderColor='#f39c12';" onmouseout="this.style.backgroundColor='#f39c12'; this.style.color='white'; this.style.borderColor='#f39c12';">
             Procurar Carros
         </button>
+
     </div>
 </form>
 <br>
