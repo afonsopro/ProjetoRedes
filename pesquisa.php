@@ -1,15 +1,15 @@
-<form method="POST" enctype="multipart/form-data" action="index.php?cmd=pesquisa" style="max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 15px; font-family: 'Poppins', sans-serif;">
-
+<form method="POST" enctype="multipart/form-data" action="index.php?cmd=pesquisa" style="max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 15px; font-family: 'Poppins', sans-serif; justify-content: center;">
     <!-- Marca -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Marca:<br>
         <select name="marca" id="marca" style="font-family: Poppins; color: #555; width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
             <option value="">Selecione uma marca</option>
             <?php
-            $sql="select * from marca order by mardsg";
-            $res=$lig->query($sql);
-            while($lin=$res->fetch_array()) {
-                echo "<option value=",$lin['CodMarca'],">",$lin['mardsg'],"</option>\n";
+            $sql = "SELECT * FROM marca ORDER BY mardsg";
+            $res = $lig->query($sql);
+            while ($lin = $res->fetch_array()) {
+                $selected = ($_POST['marca'] ?? '') == $lin['CodMarca'] ? 'selected' : '';
+                echo "<option value='{$lin['CodMarca']}' $selected>{$lin['mardsg']}</option>";
             }
             ?>
         </select>
@@ -21,14 +21,15 @@
         <select name="modelo" id="modelo" style="font-family: Poppins; color: #555; width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
             <option value="">Selecione um modelo</option>
             <?php
-            $sql="select * from marca order by mardsg";
-            $res=$lig->query($sql);
-            while($lin=$res->fetch_array()) {
-                echo "<option value=",$lin['CodMarca'],"; style='font-weight: bold;' disabled>",$lin['mardsg'],"</option>\n";
-                $sql1="select * from modelo where CodMarca = ".$lin['CodMarca']." order by moddgs";
-                $res1=$lig->query($sql1);
-                while($lin1=$res1->fetch_array()) {
-                    echo "<option value=",$lin1['CodMod']," data-marca=", $lin1['CodMarca'], ">",$lin1['moddgs'],"</option>\n";        
+            $sql = "SELECT * FROM marca ORDER BY mardsg";
+            $res = $lig->query($sql);
+            while ($lin = $res->fetch_array()) {
+                echo "<option value='' style='font-weight: bold;' disabled>{$lin['mardsg']}</option>";
+                $sql1 = "SELECT * FROM modelo WHERE CodMarca = {$lin['CodMarca']} ORDER BY moddgs";
+                $res1 = $lig->query($sql1);
+                while ($lin1 = $res1->fetch_array()) {
+                    $selected = ($_POST['modelo'] ?? '') == $lin1['CodMod'] ? 'selected' : '';
+                    echo "<option value='{$lin1['CodMod']}' data-marca='{$lin1['CodMarca']}' $selected>{$lin1['moddgs']}</option>";
                 }
             }
             ?>
@@ -55,10 +56,11 @@
         <select name="tipo_veiculo" style="font-family: Poppins; color: #555; width: 97%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
             <option value="">Selecione um tipo</option>
             <?php
-            $sql="SELECT * FROM tipovei ORDER BY tipopdsg";
-            $res=$lig->query($sql);
-            while($lin=$res->fetch_array()) {
-                echo "<option value=",$lin['CodTpVei'],">",$lin['tipopdsg'],"</option>\n";
+            $sql = "SELECT * FROM tipovei ORDER BY tipopdsg";
+            $res = $lig->query($sql);
+            while ($lin = $res->fetch_array()) {
+                $selected = ($_POST['tipo_veiculo'] ?? '') == $lin['CodTpVei'] ? 'selected' : '';
+                echo "<option value='{$lin['CodTpVei']}' $selected>{$lin['tipopdsg']}</option>";
             }
             ?>
         </select>
@@ -67,61 +69,85 @@
     <!-- Preço -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Preço Mínimo (€):<br>
-        <input type="number" name="preco_min" placeholder="Ex.: 5000" min="0" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="preco_min" placeholder="Ex.: 5000" min="0" value="<?= htmlspecialchars($_POST['preco_min'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Preço Máximo (€):<br>
-        <input type="number" name="preco_max" placeholder="Ex.: 50000" min="0" style="width: 90.5%; padding: 8px; color: #303030; font-family: Poppins;  margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="preco_max" placeholder="Ex.: 50000" min="0" value="<?= htmlspecialchars($_POST['preco_max'] ?? '') ?>" style="width: 90.5%; padding: 8px; color: #303030; font-family: Poppins; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Quilómetros -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Quilómetros Máximos:<br>
-        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" style=" color: #303030; font-family: Poppins; width: 93%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="quilometros" placeholder="Ex.: 50000" min="0" value="<?= htmlspecialchars($_POST['quilometros'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 93%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Ano -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Ano (De):<br>
-        <input type="number" name="ano_min" placeholder="Ex.: 2000" min="1900" style=" color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="ano_min" placeholder="Ex.: 2000" min="1900" value="<?= htmlspecialchars($_POST['ano_min'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Ano (Até):<br>
-        <input type="number" name="ano_max" placeholder="Ex.: 2024" min="1900" style=" color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="ano_max" placeholder="Ex.: 2024" min="1900" value="<?= htmlspecialchars($_POST['ano_max'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
+
+    <!-- Tipo de Combústivel -->
+    <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
+        Tipo de Combustível:<br>
+        <select name="combustivel" style="font-family: Poppins; color: #555; width: 97.7%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+            <option value="">Selecione um tipo de combustível</option>
+            <?php
+                // Consulta para buscar os tipos de combustível
+                $sql = "SELECT * FROM combustivel ORDER BY combdsg";
+                $res = $lig->query($sql);
+                
+                // Loop para preencher as opções no dropdown
+                while ($lin = $res->fetch_array()) {
+                    // Verifica se o valor foi selecionado no envio anterior
+                    $selected = ($_POST['combustivel'] ?? '') == $lin['Codcomb'] ? 'selected' : '';
+                    echo "<option value='{$lin['Codcomb']}' $selected>{$lin['combdsg']}</option>";
+                }
+            ?>
+        </select>
+    </label>
+
 
     <!-- Número de Portas -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Número de Portas:<br>
-        <input type="number" name="portas" min="0" placeholder="Ex.: 4" style=" color: #303030; font-family: Poppins; width: 93%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="portas" min="0" placeholder="Ex.: 4" value="<?= htmlspecialchars($_POST['portas'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 91%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Número de Lugares -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Número de Lugares:<br>
-        <input type="number" name="lugares" min="1" placeholder="Ex.: 5" style=" color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="lugares" min="1" placeholder="Ex.: 5" value="<?= htmlspecialchars($_POST['lugares'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Cor -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Cor do Carro:<br>
-        <select name="cor" style="font-family: Poppins; color: #555; width: 95%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <select name="cor" style="font-family: Poppins; color: #555; width: 97.8%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
             <option value="">Selecione uma cor</option>
-            <option value="Preto">Preto</option>
-            <option value="Branco">Branco</option>
-            <option value="Prata">Prata</option>
-            <option value="Azul">Azul</option>
-            <option value="Vermelho">Vermelho</option>
-            <option value="Cinza">Cinza</option>
-            <option value="Bege">Bege</option>
-            <option value="Verde">Verde</option>
+            <?php
+            $cores = ['Preto', 'Branco', 'Prata', 'Azul', 'Vermelho', 'Cinza', 'Bege', 'Verde'];
+            foreach ($cores as $cor) {
+                $selected = ($_POST['cor'] ?? '') == $cor ? 'selected' : '';
+                echo "<option value='$cor' $selected>$cor</option>";
+            }
+            ?>
         </select>
     </label>
-
+    <!-- Botões de Limpar Filtros e Aplicar Filtro -->
+    <a href="index.php?cmd=pesquisa" style="font-size: 15px; color: #f39c12; text-decoration: none; font-family: Poppins, sans-serif; display: inline-flex; justify-content: center; align-items: center; padding: 15px 20px;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';">
+        Limpar Filtro
+    </a>
     <!-- Botão de Pesquisa -->
-    <button type="submit" style="flex: 1 1 150%; font-family: Poppins; max-width: 250px; margin: 10px; padding: 15px 15px; background-color: #f39c12; color: white; font-size: 14px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer;">
+    <button type="submit" style="font-family: Poppins; max-width: 250px; margin: 10px; padding: 15px 15px; background-color: #f39c12; color: white; font-size: 14px; font-weight: bold; border: 2px solid #f39c12; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='white'; this.style.color='#f39c12'; this.style.borderColor='#f39c12';" onmouseout="this.style.backgroundColor='#f39c12'; this.style.color='white'; this.style.borderColor='#f39c12';">
         Aplicar Filtro
     </button>
+
 </form>
 <br>
 <?php
@@ -134,12 +160,13 @@ $preco_max = !empty($_REQUEST['preco_max']) ? floatval($_REQUEST['preco_max']) :
 $quilometros = !empty($_REQUEST['quilometros']) ? intval($_REQUEST['quilometros']) : null;
 $ano_min = !empty($_REQUEST['ano_min']) ? intval($_REQUEST['ano_min']) : null;
 $ano_max = !empty($_REQUEST['ano_max']) ? intval($_REQUEST['ano_max']) : null;
+$combustivel = !empty($_REQUEST['combustivel']) ? intval($_REQUEST['combustivel']) : null;
 $portas = !empty($_REQUEST['portas']) ? intval($_REQUEST['portas']) : null;
 $lugares = !empty($_REQUEST['lugares']) ? intval($_REQUEST['lugares']) : null;
 $cor = !empty($_REQUEST['cor']) ? $lig->real_escape_string($_REQUEST['cor']) : null;
 
 // Início da consulta SQL
-$sql = "SELECT veiculo.*, marca.mardsg AS marca, modelo.moddgs AS modelo FROM veiculo INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod INNER JOIN marca ON modelo.CodMarca = marca.CodMarca WHERE 1=1";
+$sql = "SELECT veiculo.*, marca.mardsg AS marca, modelo.moddgs AS modelo, combustivel.combdsg AS comb FROM veiculo INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod INNER JOIN marca ON modelo.CodMarca = marca.CodMarca INNER JOIN combustivel ON combustivel.Codcomb = veiculo.Codcomb WHERE 1=1";
 
 // Construção dinâmica do filtro SQL
 
@@ -150,7 +177,7 @@ if ($marca !== null) {
 
 // Modelo
 if ($modelo !== null) {
-    $sql .= " AND CodMod = $modelo";
+    $sql .= " AND modelo.CodMod = $modelo";
 }
 
 // Tipo de Veículo
@@ -183,6 +210,11 @@ if ($ano_max !== null) {
     $sql .= " AND veiano <= $ano_max";
 }
 
+// Ano (Até)
+if ($combustivel !== null) {
+    $sql .= " AND veiculo.Codcomb = $combustivel";
+}
+
 // Número de Portas
 if ($portas !== null) {
     $sql .= " AND veiportas = $portas";
@@ -211,7 +243,7 @@ if ($res->num_rows > 0) {
 
         // Foto do veículo (lado esquerdo) com altura ajustada
         echo "<div style='flex: 0 0 150px; width: auto; height: 200px;  object-fit: cover;'>
-                <img src='Imagens/" . $lin['fotovei'] . " alt='Imagem do Veículo' style='width: 300px; height: 100%; border-radius: 8px;'>
+                <img src='Imagens/" . $lin['fotovei'] . "' alt='Imagem do Veículo' style='width: 300px; height: 100%; border-radius: 8px;'>
               </div>";
 
         // Informações do veículo (lado direito)
@@ -247,7 +279,7 @@ if ($res->num_rows > 0) {
         // Cor e Tipo de Combustível
         echo "<p style='font-size: 14px; color: #555; margin-bottom: 5px;'>";
         echo "<strong>Cor:</strong> " . $lin['veicor'] . " | ";
-        echo "<strong>Combustível:</strong> " . $lin['Codcomb'];
+        echo "<strong>Combustível:</strong> " . $lin['comb'];
         echo "</p>";
 
         // Final da seção
