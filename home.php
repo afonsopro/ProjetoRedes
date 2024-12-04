@@ -177,7 +177,7 @@ function gerarCartoesVeiculosRecentes($lig) {
             // Criação do cartão com botão
             $html .= '
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
-                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
                         <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 5px; margin: 5px 0;">
                             <img src="Imagens/' . $foto . '" alt="Carro" style="width: 92%; height: 90%; object-fit: cover; border-radius: 5px;">
@@ -248,7 +248,7 @@ function gerarCartoesVeiculosBaratos($lig) {
             // Criação do cartão com botão
             $html .= '
             <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
-                <a href="pagina_individual_veiculo.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
+                <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
                         <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 5px; margin: 5px 0;">
                             <img src="imagens/' . $foto . '" alt="Carro" style="width: 92%; height: 90%; object-fit: cover; border-radius: 5px;">
