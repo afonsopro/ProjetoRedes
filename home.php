@@ -2,7 +2,7 @@
 <br>
 <h1 style="text-align: center; color: #333; margin-top: 20px; font-size: 40px"><i>Encontre o Carro Perfeito para Si</i></h1>
 <br>
-<form method="POST"  enctype="multipart/form-data" action="index.php?cmd=pesquisa" style="max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px;">
+<form method="POST"  enctype="multipart/form-data" action="index.php?cmd=pesquisa" style="max-width: 80%; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px;">
 
     <!-- Marca -->
     <label style="flex: 1 1 45%; font-weight: bold; color: #555;">
