@@ -1,19 +1,36 @@
 <?php
+session_start();
 include "includes/ligamysql.php";
 $car_id = $_REQUEST['id'];
 
+$sql="select v.*, moddgs, mardsg, c.*, a.*, co.combdsg from Veiculo v, Modelo, Marca, Cliente c, Anuncio a, Combustivel co where (v.CodMod=Modelo.CodMod AND Modelo.CodMarca=Marca.CodMarca AND v.CodAnun=a.CodAnu AND a.CodCli=c.CodCli AND v.Codcomb=co.Codcomb AND v.CodVei=$car_id)";
+$res=$lig->query($sql);
+$lin=$res->fetch_array();
+    if (!$lin) {
+        die("Nenhum registro encontrado.");
+    }
 
-$sql="select v.*, moddgs, mardsg, c.*, a.*, co.combdsg, f.foto from Veiculo v, Modelo, Marca, Cliente c, Anuncio a, Combustivel co, FotosVei f where (v.CodMod=Modelo.CodMod AND Modelo.CodMarca=Marca.CodMarca AND v.CodVei=$car_id AND v.CodAnun=a.CodAnu AND a.CodCli=c.CodCli AND v.Codcomb=co.Codcomb AND v.CodVei=f.CodVei)";
-	$res=$lig->query($sql);
+$sql2 = "SELECT foto FROM FotosVei WHERE CodVei = $car_id ORDER BY CodFoto ASC";
+$result = $lig->query($sql2);
 
-include "includes/menu.php";
 
- while ($lin=$res->fetch_array()){
+
 ?>
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
 
+<head>
+  <title>LealCars - <?php echo htmlspecialchars($lin['mardsg']);?> <?php echo htmlspecialchars($lin['moddgs']);?></title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+<?php
+    if(isset($_SESSION['climail'])){	
+        require 'includes/menu1.php';
+    }
+    else{
+        require 'includes/menu.php';
+    }?>
     <div style="width: 80%; margin: 0 auto;">
         <!-- Header com nome carro e preço -->
+         
         <span style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
             <a href="index.php?cmd=home"><button style="margin: none; background-color: #ffffff; border: 0px solid;"><img src="imagens/voltar.png" alt="" style="height: 35px;"></button></a>
             <h1 style="margin-left: -650px;"><?php echo htmlspecialchars($lin['mardsg']);?> <?php echo htmlspecialchars($lin['moddgs']);?></h1>
@@ -21,19 +38,23 @@ include "includes/menu.php";
         </span>
     <section style="display: flex; align-items: center; gap: 20px; padding: 20px;">
         <!-- Carro imagens -->
+
         <div class="slideshow-container" style="position: relative; width: 100%; max-width: 600px; margin: auto;">
             <div class="slides" style="display: none; width: 100%;">
-                <img src="<?php echo "./imagens/".$lin['fotovei'];?>" alt="Imagem 1" style="width:100%">
+                <img src="<?php echo "./imagens/caros/".$lin['fotovei'];?>" alt="Imagem 1" style="width:100%">
             </div>
-            <div class="slides" style="display: none; width: 100%;">
-                <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 2" style="width:100%">
-            </div>
-            <div class="slides" style="display: none; width: 100%;">
-                <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 3" style="width:100%">
-            </div>
-            <div class="slides" style="display: none; width: 100%;">
-                <img src="<?php echo "./imagens/".$lin['foto'];?>" alt="Imagem 4" style="width:100%">
-            </div>
+            <?php
+                $images = [];
+                while ($row = $result->fetch_assoc()) {
+                    $images[] = $row['foto'];
+                }
+                foreach ($images as $index => $image): ?>
+                <div class="slides" style="display: none;">
+                    <img src="<?php echo './imagens/caros/' . htmlspecialchars($image); ?>" alt="Imagem <?php echo $index + 1; ?>" style="width:100%">
+                </div>
+            <?php endforeach; ?>
+
+  
 
             <!-- Botões de navegação -->
             <a class="prev" onclick="plusSlides(-1)" style="cursor: pointer; position: absolute; top: 50%; padding: 16px; color: white; font-weight: bold; font-size: 18px; background-color: rgba(0, 0, 0, 0.5); border: none; border-radius: 0 3px 3px 0; margin-top: -22px;">&#10094;</a>
@@ -48,10 +69,12 @@ include "includes/menu.php";
                     <p>Nome Vendedor: <?php echo htmlspecialchars($lin['clinome']);?></p>
                     <p>Telefone: <?php echo $lin['clitel']?></p>
                     <p>Email: <?php echo $lin['climail']?></p>
-                    <button style="background-color: #f39c12; color: #ffffff; border: 0px solid #303030; padding: 10px 20px; border-radius: 5px; font-size: 20px; cursor: pointer; font-family: 'Poppins'; width: 285px; height: 50px;">Mensagem</button><br>
-                    <a href='favoritos.php?id= '. $car_id . >
-                    <button id="favoritos" style="background-color: #f39c12; color: #ffffff; border: 0px solid #303030; padding: 10px 20px; border-radius: 5px; font-size: 20px; cursor: pointer; font-family: 'Poppins'; width: 285px; height: 50px; margin-top:10px;"><img src="imagens/fav.png" alt="" height="30px"></button>
-                    </a>
+                    <button style="background-color: #f39c12; color: #ffffff; border: 0px solid #303030; padding: 10px 20px; border-radius: 5px; font-size: 20px; cursor: pointer; font-family: 'Poppins'; width: 285px; height: 50px;" onclick="openModal()">Mensagem</button><br>
+                    <button id="favoritos_<?php echo $car_id; ?>" 
+                        onclick="toggleFavorito(<?php echo $car_id; ?>)" 
+                        style="background-color: #f39c12; color: #ffffff; border: 0px solid #303030; padding: 10px 20px; border-radius: 5px; font-size: 20px; cursor: pointer; font-family: 'Poppins'; width: 285px; height: 50px; margin-top:10px;">
+                    <img id="favImg_<?php echo $car_id; ?>" src="imagens/fav.png" alt="Favorito" height="30px">
+                    </button>
                 </th>
             </tr>
         </table>
@@ -111,8 +134,26 @@ include "includes/menu.php";
                 </tr>
         </table>
     </span>
-       
+    
     </div>
+
+<!--Modal-->
+<div id="chatModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
+        <div style="background: #fff; margin: 10% auto; padding: 20px; border-radius: 5px; width: 50%; max-width: 600px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+            <span onclick="closeModal()" style="float: right; cursor: pointer; font-size: 24px;">&times;</span>
+            <h2>Chat</h2>
+            <div id="chatBox" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9;">
+                <!-- Mensagem aparece aqui -->
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="messageInput" placeholder="Digite sua mensagem" style="flex-grow: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <button onclick="sendMessage()" style="background-color: #f39c12; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+
+
         <script>
     var slideIndex = 0;
 
@@ -132,6 +173,83 @@ include "includes/menu.php";
 
     // Inicializa o slideshow
     showSlides(slideIndex);
+
+
+    // Abrir o modal
+    function openModal() {
+        document.getElementById("chatModal").style.display = "block";
+    }
+
+    // Fechar o modal
+    function closeModal() {
+        document.getElementById("chatModal").style.display = "none";
+    }
+
+    // Enviar mensagem
+    function sendMessage() {
+        const messageInput = document.getElementById("messageInput");
+        const chatBox = document.getElementById("chatBox");
+        
+        if (messageInput.value.trim() !== "") {
+            const message = document.createElement("div");
+            message.textContent = messageInput.value;
+            message.style.marginBottom = "10px";
+            message.style.background = "#f39c12";
+            message.style.color = "#fff";
+            message.style.padding = "10px";
+            message.style.borderRadius = "5px";
+            message.style.textAlign = "right"; // Mensagem do usuário alinhada à direita
+            chatBox.appendChild(message);
+
+            // Limpa o campo de texto
+            messageInput.value = "";
+
+            // Rolagem automática para a última mensagem
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Envia para o backend (usando AJAX ou WebSocket, por exemplo)
+            /*
+            fetch("enviarMensagem.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mensagem: message.textContent })
+            }).then(response => response.json())
+              .then(data => console.log(data))
+              .catch(err => console.error(err));
+            */}
+        }
+
+
+        //botão favoritos
+
+        function toggleFavorito(carId) {
+       // Obter o botão e a imagem
+      const favButton = document.getElementById(`favoritos_${carId}`);
+      const favImg = document.getElementById(`favImg_${carId}`);
+    
+     // Enviar requisição ao servidor para alternar o status do favorito
+      fetch('favoritar.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ carId })
+      })
+     .then(response => response.json())
+     .then(data => {
+           if (data.success) {
+            // Alternar a imagem do botão com base no status retornado
+               if (data.isFavorited) {
+                favImg.src = "imagens/fav2.png"; // Nova imagem para "Favoritado"
+            } else {
+                favImg.src = "imagens/fav.png"; // Imagem para "Não Favoritado"
+            }
+        } else {
+            alert('Não foi possível atualizar o favorito. Tente novamente mais tarde.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao tentar favoritar.');
+    });
+}
 </script>
 </body>
-<?php }?>
