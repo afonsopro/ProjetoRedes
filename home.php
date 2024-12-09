@@ -141,7 +141,7 @@
 </section>
 <br><br>
 <h2 style="text-align: left; color: #333; margin-left: 80px; font-size: 27px"><i>Anúncios mais recentes</i></h2>
-<br>
+
 <?php
 function gerarCartoesVeiculosRecentes($lig) {
     // Consulta para buscar os veículos com suas marcas e modelos
@@ -151,7 +151,8 @@ function gerarCartoesVeiculosRecentes($lig) {
         FROM veiculo
         INNER JOIN modelo ON veiculo.CodMod = modelo.CodMod
         INNER JOIN marca ON modelo.CodMarca = marca.CodMarca
-        ORDER BY veiculo.veipre DESC
+        INNER JOIN anuncio ON veiculo.CodAnun = anuncio.CodAnu
+        ORDER BY anuncio.dataanu DESC
         LIMIT 8";
     
     $res = $lig->query($sql);
@@ -176,11 +177,13 @@ function gerarCartoesVeiculosRecentes($lig) {
 
             // Criação do cartão com botão
             $html .= '
-            <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
+            <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                onmouseover="this.style.transform = \'scale(1.05)\'; this.style.boxShadow = \'0 4px 8px rgba(0, 0, 0, 0.2)\';"
+                onmouseout="this.style.transform = \'scale(1)\'; this.style.boxShadow = \'0 2px 4px rgba(0, 0, 0, 0.1)\';">
                 <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
-                        <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 5px; margin: 5px 0;">
-                            <img src="Imagens/' . $foto . '" alt="Carro" style="width: 92%; height: 90%; object-fit: cover; border-radius: 5px;">
+                        <div style="width: 100%; height: 170px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 10px; margin: 10px 0;">
+                            <img src="Imagens/caros/' . $foto . '" alt="Carro" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px;">
                         </div>
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
@@ -189,8 +192,7 @@ function gerarCartoesVeiculosRecentes($lig) {
                         <p style="font-size: 1.2em; font-family: Poppins; color: #f39c12; font-weight: bold; margin: 10px 0;">' . htmlspecialchars($preco) . '</p>
                     </button>
                 </a>
-            </td>
-            ';
+            </td>';
 
             // Criar nova linha a cada 4 cartões
             $index++;
@@ -247,11 +249,13 @@ function gerarCartoesVeiculosBaratos($lig) {
 
             // Criação do cartão com botão
             $html .= '
-            <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px;">
+            <td style="width: 22%; font-family: Poppins; vertical-align: top; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 0 10px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                onmouseover="this.style.transform = \'scale(1.05)\'; this.style.boxShadow = \'0 4px 8px rgba(0, 0, 0, 0.2)\';"
+                onmouseout="this.style.transform = \'scale(1)\'; this.style.boxShadow = \'0 2px 4px rgba(0, 0, 0, 0.1)\';">
                 <a href="anuncio.php?id=' . $codVei . '" style="text-decoration: none; font-family: Poppins; color: inherit;">
                     <button style="width: 100%; background: none; border: none; padding: 0; cursor: pointer;">
-                        <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 5px; margin: 5px 0;">
-                            <img src="imagens/' . $foto . '" alt="Carro" style="width: 92%; height: 90%; object-fit: cover; border-radius: 5px;">
+                        <div style="width: 100%; height: 170px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 10px; margin: 10px 0;">
+                            <img src="Imagens/caros/' . $foto . '" alt="Carro" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px;">
                         </div>
                         <h3 style="font-size: 1.1em; font-family: Poppins; font-weight: bold; margin: 10px 0; word-wrap: break-word;">' . htmlspecialchars($titulo) . '</h3>
                         <p style="margin: 5px 0; font-family: Poppins; font-size: 0.9em;">' . htmlspecialchars($ano) . ' • ' . htmlspecialchars($km) . ' • ' . htmlspecialchars($combustivel) . '</p>
@@ -260,9 +264,7 @@ function gerarCartoesVeiculosBaratos($lig) {
                         <p style="font-size: 1.2em; font-family: Poppins; color: #f39c12; font-weight: bold; margin: 10px 0;">' . htmlspecialchars($preco) . '</p>
                     </button>
                 </a>
-            </td>
-            ';
-
+            </td>';
             // Criar nova linha a cada 4 cartões
             $index++;
             if ($index % 4 == 0 && $index != $res->num_rows) {
