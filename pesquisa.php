@@ -85,11 +85,11 @@
     <!-- Ano -->
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Ano (De):<br>
-        <input type="number" name="ano_min" placeholder="Ex.: 2000" min="1900" value="<?= htmlspecialchars($_POST['ano_min'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="ano_min" placeholder="Ex.: 2000" min="1950" value="<?= htmlspecialchars($_POST['ano_min'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
     <label style="flex: 1 1 30%; font-weight: bold; color: #555;">
         Ano (Até):<br>
-        <input type="number" name="ano_max" placeholder="Ex.: 2024" min="1900" value="<?= htmlspecialchars($_POST['ano_max'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
+        <input type="number" name="ano_max" placeholder="Ex.: 2024" min="1950" value="<?= htmlspecialchars($_POST['ano_max'] ?? '') ?>" style="color: #303030; font-family: Poppins; width: 90.5%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
     </label>
 
     <!-- Tipo de Combústivel -->
@@ -131,7 +131,7 @@
         <select name="cor" style="font-family: Poppins; color: #555; width: 97.8%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px;">
             <option value="">Selecione uma cor</option>
             <?php
-            $cores = ['Preto', 'Branco', 'Prata', 'Azul', 'Vermelho', 'Cinza', 'Bege', 'Verde'];
+            $cores = ['Preto', 'Branco', 'Prata', 'Azul', 'Vermelho', 'Cinzento ', 'Bege', 'Verde'];
             foreach ($cores as $cor) {
                 $selected = ($_POST['cor'] ?? '') == $cor ? 'selected' : '';
                 echo "<option value='$cor' $selected>$cor</option>";
@@ -237,13 +237,29 @@ $sql .= " ORDER BY veipre ASC";
 $res = $lig->query($sql);
 
 if ($res->num_rows > 0) {
+
+// Início da div que contém o título e a caixa de seleção
+echo "<div style='display: flex; align-items: center; justify-content: space-between; margin-left: 7%; width: 100%; max-width: 87%; padding: 20px 0;'>";
+
+// Título com o número de resultados
+echo "<h2 style='font-family: Poppins, sans-serif; color: #f39c12; text-align: left; margin-left: 0;'>";
+echo $res->num_rows . " resultados</h2>";
+
+// Barra de separação
+echo "<hr style='flex-grow: 4; border: 0; border-top: 2px solid #ddd; margin: 0 30px;'>";
+
+echo "</div>"; // Fim da div de contagem e caixa de seleção
+
     while ($lin = $res->fetch_assoc()) {
         // Início da seção do layout para cada veículo
-        echo "<section style='background-color: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 87%; padding: 20px; margin: 10px auto; font-family: Poppins, sans-serif; display: flex; align-items: flex-start; gap: 20px; min-height: 200px;'>";
+        echo "<a href='anuncio.php?id=" . $lin['CodVei'] . "' style='text-decoration: none; color: inherit;'>
+                <section style='background-color: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 87%; padding: 20px; margin: 10px auto; font-family: Poppins, sans-serif; display: flex; align-items: flex-start; gap: 20px; min-height: 200px; transition: transform 0.3s ease, box-shadow 0.3s ease;' 
+                onmouseover='this.style.transform=\"scale(1.05)\"; this.style.boxShadow=\"0 6px 12px rgba(0, 0, 0, 0.2)\";' 
+                onmouseout='this.style.transform=\"scale(1)\"; this.style.boxShadow=\"0 4px 8px rgba(0, 0, 0, 0.1)\";'>";
 
         // Foto do veículo (lado esquerdo) com altura ajustada
-        echo "<div style='flex: 0 0 150px; width: auto; height: 200px;  object-fit: cover;'>
-                <img src='Imagens/" . $lin['fotovei'] . "' alt='Imagem do Veículo' style='width: 300px; height: 100%; border-radius: 8px;'>
+        echo "<div style='flex: 0 0 150px; width: auto; height: 200px; object-fit: cover;'>
+                <img src='Imagens/caros/" . $lin['fotovei'] . "' alt='Imagem do Veículo' style='width: 300px; height: 100%; border-radius: 8px;'>
               </div>";
 
         // Informações do veículo (lado direito)
@@ -254,13 +270,13 @@ if ($res->num_rows > 0) {
         echo "€ " . number_format($lin['veipre'], 2, ',', '.');
         echo "</div>";
 
-        // Título do veículo (Marca e Modelo) movido um pouco para cima
-        echo "<h3 style='font-size: 22px; font-weight: bold; color: #333; margin-top: -10px; margin-bottom: 10px;'>";  // margin-top ajustado para -10px
+        // Título do veículo (Marca e Modelo)
+        echo "<h3 style='font-size: 22px; font-weight: bold; color: #333; margin-top: -10px; margin-bottom: 10px;'>";
         echo $lin['marca'] . " " . $lin['modelo'];
         echo "</h3>";
 
-        // Título do veículo (Marca e Modelo) movido um pouco para cima
-        echo "<h4 style='font-size: 17px; font-weight: bold; color: #333; margin-top: -10px; margin-bottom: 10px;'>";  // margin-top ajustado para -10px
+        // Descrição do veículo
+        echo "<h4 style='font-size: 17px; font-weight: bold; color: #333; margin-top: -10px; margin-bottom: 10px;'>";
         echo $lin['veidescricao'];
         echo "</h4>";
 
@@ -284,7 +300,9 @@ if ($res->num_rows > 0) {
 
         // Final da seção
         echo "</div>"; // Fim das informações do veículo
-        echo "</section>"; // Fim da seção do layout
+        echo "</section>";
+        echo "</a>";
+        echo "<br>";
     }
 } else {
     echo "<section style='text-align: center; margin-top: 50px;'>";
